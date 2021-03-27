@@ -29,6 +29,7 @@ while state != "G":
     if(state == "B"):
         input_coins = input("\nInsert money or press (y) for refund: ")
         if(input_coins == "Y" or input_coins == "y"):
+            change = input_coins
             state = "E"
         else:
             input_coins = float(input_coins)
@@ -47,7 +48,7 @@ while state != "G":
             change = input_coins
             state = "E"
         if(drink_input == "Coke" or drink_input == "coke"):
-            if(drink_cost < total_coins):
+            if(drink_cost <= total_coins):
                 if(drink_1 > 0):
                     drink_1 = drink_1 - 1
                     total_coins = total_coins - 1.50
@@ -59,7 +60,7 @@ while state != "G":
             else:
                 print("\nNot enough money for Coke.")
         if(drink_input == "Pepsi" or drink_input == "pepsi"):
-            if(drink_cost < total_coins):
+            if(drink_cost <= total_coins):
                 if(drink_2 > 0):
                     drink_2 = drink_2 - 1
                     total_coins = total_coins - 1.50
@@ -71,7 +72,7 @@ while state != "G":
             else:
                 print("\nNot enough money for Pepsi.")
         if(drink_input == "Sprite" or drink_input == "sprite"):
-            if(drink_cost < total_coins):           
+            if(drink_cost <= total_coins):           
                 if(drink_3 > 0):
                     drink_3 = drink_3 - 1
                     total_coins = total_coins - 1.50
