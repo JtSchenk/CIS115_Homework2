@@ -13,12 +13,13 @@ machine = True
 total_cost = 0
 change = 0
 drink_list = ["Items selected: "]
+drink_cost = 1.50
 
 # Defining State machines
 
 while state != "G":
-    if(state == "F"):
-        print("\nRestocking")
+    #if(state == "F"):
+        #print("\nRestocking")
     if(state == "A"):
         input_start = input("\nEnter (start) to start the program: ")
         if input_start == "start" or input_start == "Start":
@@ -31,52 +32,61 @@ while state != "G":
             state = "E"
         else:
             input_coins = float(input_coins)
-            total_coins = input_coins # temporary variable
+            total_coins = input_coins # another coin variable to avoid conflicts
             if(input_coins > 1.50):
                 state = "C"
             else:
                 print("Enter in more money.")
     if(state == "C"):
-        temp_drink_cost = 1.50
         print("\n(1) What drink do you want? Options: (Coke,Pepsi,Sprite)\n(2) Are you finished with your drink selection? (y)\n(3) Would you like a refund? (r)\n")
         print("Coke ($1.50) \nPepsi ($1.50) \nSprite ($1.50)")
         drink_input = input("\nEnter: ")
         if(drink_input == "Y" or drink_input == "y"):
             state = "D"
         if(drink_input == "R" or drink_input == "r"):
+            change = input_coins
             state = "E"
-        if(drink_1 > 0):
-            if(drink_input == "Coke" or drink_input == "coke"):
-                drink_1 = drink_1 - 1
-                input_coins = input_coins - 1.50
-                print("\nCoke added to list.")
-                drink_list.append("Coke $1.50 ")
-                total_cost += 1.50
-        else:
-            print("\nNo Coke available. Please select another option.\n")
-        if(drink_2 > 0):
-            if(drink_input == "Pepsi" or drink_input == "pepsi"):
-                drink_2 = drink_2 - 1
-                input_coins = input_coins - 1.50
-                print("\nPepsi added to list.")
-                drink_list.append("Pepsi $1.50 ")
-                total_cost += 1.50
-        else:
-            print("\nNo Pepsi available. Please select another option.\n")
-        if(drink_3 > 0):           
-            if(drink_input == "Sprite" or drink_input == "sprite"):
-                drink_3 = drink_3 - 1
-                input_coins = input_coins - 1.50
-                print("\nSprite added to list.")
-                drink_list.append("Sprite $1.50")
-                total_cost += 1.50
-        else:
-            print("\nNo Sprite available. Please select another option.\n")
+        if(drink_input == "Coke" or drink_input == "coke"):
+            if(drink_cost < total_coins):
+                if(drink_1 > 0):
+                    drink_1 = drink_1 - 1
+                    total_coins = total_coins - 1.50
+                    print("\nCoke added to list.")
+                    drink_list.append("Coke $1.50 ")
+                    total_cost += 1.50
+                else:
+                    print("\nNo Coke available. Please select another option.\n")
+            else:
+                print("\nNot enough money for Coke.")
+        if(drink_input == "Pepsi" or drink_input == "pepsi"):
+            if(drink_cost < total_coins):
+                if(drink_2 > 0):
+                    drink_2 = drink_2 - 1
+                    total_coins = total_coins - 1.50
+                    print("\nPepsi added to list.")
+                    drink_list.append("Pepsi $1.50 ")
+                    total_cost += 1.50
+                else:
+                    print("\nNo Pepsi available. Please select another option.\n")
+            else:
+                print("\nNot enough money for Pepsi.")
+        if(drink_input == "Sprite" or drink_input == "sprite"):
+            if(drink_cost < total_coins):           
+                if(drink_3 > 0):
+                    drink_3 = drink_3 - 1
+                    total_coins = total_coins - 1.50
+                    print("\nSprite added to list.")
+                    drink_list.append("Sprite $1.50")
+                    total_cost += 1.50
+                else:
+                    print("\nNo Sprite available. Please select another option.\n")
+            else:
+                print("\nNot enough money for Sprite.")
     if(state == "D"):
         drink_list.append("TOTAL COST: {}".format(total_cost))
         print(drink_list)
         drink_list = ["Items selected: "] # resets the list
-        change = total_coins - total_cost
+        change = input_coins - total_cost # original input coins - total cost
         if(change == 0):
             print("\nNo change required. All coins spent.")
             state = "A"
@@ -87,6 +97,4 @@ while state != "G":
         print("\nReturning change: ${}".format(change))
         change = 0 # resets the change
         total_cost = 0 # resets the total_cost
-        state = "A"
-        
-        
+        state = "A"       
