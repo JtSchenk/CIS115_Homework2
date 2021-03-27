@@ -1,7 +1,7 @@
 # Name: Jacob Schenkelberg
 # Section: D
 # Project: Vending Machine
-# Description:
+# Description: Vending Machine that goes through different states depending on user input.
 
 # Creating initial variables
 state = "A"
