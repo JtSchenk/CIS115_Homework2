@@ -26,11 +26,13 @@ while state != "G":
         if(drink_1 < MAX_SIZE_COKE or drink_2 < MAX_SIZE_PEPSI or drink_3 < MAX_SIZE_SPRITE):
             state = "F"
         if(state == "A"):
-            input_start = input("\nEnter (start) to start the program: ")
+            input_start = input("\nEnter (start) to start the program or (exit) to close the program: ")
             if input_start == "start" or input_start == "Start":
                 state = "B"
+            elif(input_start == "Exit" or input_start == "exit"):
+                state = "G"
             else:
-                print("\nYou need to type start in order to start. ")
+                print("\nYou need to type (start) in order to start or (exit) in order to exit. ")
 
     if(state == "B"):
         input_coins = input("\nInsert money or press (y) for refund: ")
