@@ -33,7 +33,7 @@ while state != "G":
         else:
             input_coins = float(input_coins)
             total_coins = input_coins # another coin variable to avoid conflicts
-            if(input_coins > 1.50):
+            if(input_coins >= 1.50):
                 state = "C"
             else:
                 print("Enter in more money.")
@@ -97,4 +97,4 @@ while state != "G":
         print("\nReturning change: ${}".format(change))
         change = 0 # resets the change
         total_cost = 0 # resets the total_cost
-        state = "A"       
+        state = "A"
